@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title></title>
+    <link rel="stylesheet" href="vendor/jqm/c/t/uchmnt.min.css"/>
+    <link rel="stylesheet" href="vendor/jqm/c/t/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="vendor/jqm/c/jquery.mobile.structure-1.4.5.min.css"/>
+    <style>
+      @import url(http://fonts.googleapis.com/css?family=Poiret+One);
+      body {
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: hsla(0, 5%, 5%, 1);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-image: linear-gradient(to right top, hsla(0, 5%, 15%, 0.5), hsla(0, 5%, 5%, 1));
+      background-image: -moz-linear-gradient(to right top, hsla(0, 5%, 15%, 0.5), hsla(0, 5%, 5%, 1));
+      }
+      p{
+      text-align:center;
+      width:100%;
+      color:hsla(0,50%,50%,1);
+      font-size:6em;
+      text-shadow:1px 1px hsla(0,0%,5%,1),
+              -1px -1px hsla(0,0%,5%,1);
+      font-family: 'Poiret One', cursive;
+      letter-spacing: 6px;
+      text-align: center;
+      position: relative;
+      margin-top: 40vh;
+      }
+    </style>
+      <div data-role="page" id="pag1">
+    <script src="vendor/jqm/j/jquery.min.js" ></script>
+    <script src="vendor/jqm/j/jquery.mobile.min.js" ></script>
+  </head>
+  <body>
+        <div data-role="header" data-position="fixed">
+  <canvas id="canv"></canvas>
+<p>Japones</p>
+        </div>
+      </div>
+
+
+  </body>
+
+
+  <script>
+      window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame ||
+     window.webkitRequestAnimationFrame ||
+     window.mozRequestAnimationFrame ||
+     window.oRequestAnimationFrame ||
+     window.msRequestAnimationFrame ||
+     function(callback) {
+       window.setTimeout(callback, 1000 / 60);
+     };
+    })();
+    var c = document.getElementById('canv');
+    var $ = c.getContext('2d');
+    var w = c.width = window.innerWidth;
+    var h = c.height = window.innerHeight;
+    var _w = w * 0.5;
+    var _h = h * 0.5;
+    var arr = [];
+    var cnt = 0;
+
+    window.addEventListener('load', resize);
+    window.addEventListener('resize', resize, false);
+
+    function resize() {
+    c.width = w = window.innerWidth;
+    c.height = h = window.innerHeight;
+    c.style.position = 'absolute';
+    c.style.left = (window.innerWidth - w) *
+     .01 + 'px';
+    c.style.top = (window.innerHeight - h) *
+     .01 + 'px';
+    }
+
+    function anim() {
+    cnt++;
+    if (cnt % 6) draw();
+    window.requestAnimFrame(anim);
+    }
+    anim();
+
+    function draw() {
+
+    var splot = {
+     x: rng(_w - 1900, _w + 1900),
+     y: rng(_h - 1200, _h + 1200),
+     r: rng(20, 80),
+     spX: rng(-1, 1),
+     spY: rng(-1, 1)
+    };
+
+    arr.push(splot);
+    while (arr.length > 100) {
+     arr.shift();
+    }
+    $.clearRect(0, 0, w, h);
+
+    for (var i = 0; i < arr.length; i++) {
+
+     splot = arr[i];;
+     $.fillStyle = rndCol();
+     $.beginPath();
+     $.arc(splot.x, splot.y, splot.r, 0, Math.PI * 2, true);
+     $.shadowBlur = 80;
+     $.shadowOffsetX = 2;
+     $.shadowOffsetY = 2;
+     $.shadowColor = rndCol();
+     $.globalCompositeOperation = 'lighter';
+     $.fill();
+
+     splot.x = splot.x + splot.spX;
+     splot.y = splot.y + splot.spY;
+     splot.r = splot.r * 0.96;
+    }
+    }
+
+    function rndCol() {
+    var r = Math.floor(Math.random() * 180);
+    var g = Math.floor(Math.random() * 60);
+    var b = Math.floor(Math.random() * 100);
+    return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function rng(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    </script>
+</html>

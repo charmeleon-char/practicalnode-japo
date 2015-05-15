@@ -1,0 +1,65 @@
+nav.navbar.navbar-inverse.navbar-fixed-top
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/') Japones
+    #navbar.navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li
+            a(data-toggle='modal', data-target='#myModal') Iniciar sesion
+            li
+              a(href='/') Nueva frase
+              li
+                a(href="/post") Editar Frases
+              li
+                 a(href="/api/listajapo") Ver Frases
+
+
+
+
+ #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+       .modal-dialog
+         .modal-content
+           .modal-body
+                button.close(type='button', data-dismiss='modal') &times;
+                h2 Log in
+                 if (respuesta === "correcto")
+                           .alert.alert-success(role='alert')
+                             strong Frase añadida al vocabulario =)
+                   else
+                      if (respuesta == "incorrecto")
+                         .alert.alert-danger(role='alert')
+                           strong Todavia no hay frases ingresadas si no completa los campos =(
+                br
+                br
+                div
+                p
+                 input#email(type='email', name='email', placeholder="Your email..").form-control
+                p
+                input#user(type='text', name='user', value='', placeholder='Ingrese Su Usuario').form-control
+
+
+
+           .modal-footer
+             input#save(type='button',  name='save', value='Guardar').button.btn.btn-lg.btn-primary.btn-block
+
+
+script.
+        console.log("antes del id");
+          $("#myModal").on("click",function(e){
+            $("#save").on("click",function(e){
+            console.log("llega al boton");
+            var user =($("#user").val());
+            var correo =($("#email").val());
+            $.post("/api/user",{
+            "email":correo,
+            "user": user
+            },function(data,txt,xrh){
+            console.log(data);
+            },"json");
+            });
+            });

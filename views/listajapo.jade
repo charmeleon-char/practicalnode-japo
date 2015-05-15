@@ -1,0 +1,30 @@
+extends layout
+block page
+  - var menu = 'listajapo'
+block content
+  div.listajapo
+    if (VocabularioJapones.length === 0 )
+      p
+        | Nothing to display. Add a new
+        a(href="/post") article
+        |.
+    else
+        h2 Lista de Frases En Japones
+     div
+       include includes/menujapo
+      table.table.table-stripped
+        thead
+          tr
+            th(colspan="2") Palabra
+            th(colspan="2") Signficado en Español
+            th(colspan="2") Tag
+            th(colspan="2") Fecha de Ingreso
+
+        tbody
+          each Dato, index in VocabularioJapones
+            tr
+             td(colspan="2")
+                a(href="/japo/#{Dato.palabra}")= Dato.palabra
+              td(colspan="2")= Dato.significado
+               td(colspan="2")= Dato.tag
+                td(colspan="2")= Dato.fecha

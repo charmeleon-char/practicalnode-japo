@@ -1,0 +1,27 @@
+{
+  "name": "bower",
+  "version": "1",
+  "authors": [
+    "Ramon <ramoncalixb@gmail.com>"
+  ],
+  "description": "dependencias",
+  "keywords": [
+    "bower",
+    "angular"
+  ],
+  "license": "my",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-sortable": "~0.13.3",
+    "jquery-ui": "~1.11.4",
+    "jquery": "~2.1.4",
+    "angular": "~1.3.15",
+    "bootstrap": "~3.3.4"
+  }
+}

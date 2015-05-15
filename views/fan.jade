@@ -1,0 +1,14 @@
+extends layout
+block page
+  - var menu = 'fan'
+block content
+
+    h2 Post an Fantastico
+    div= error
+    div.col-md-8
+      form(action="/post", method="POST", role="form")
+        div.form-group
+          label(for="title") Usuario
+          input#title.form-control(name="user", type="text", placeholder="User")
+            p
+          button.btn.btn-primary(type="submit") Save

@@ -1,0 +1,28 @@
+extends layout
+block page
+  - var menu = 'japo'
+block content
+
+    h2 Post in japanese
+    div
+      include includes/menujapo
+    if (respuesta === "correcto")
+              .alert.alert-success(role='alert')
+                strong Frase añadida al vocabulario =)
+      else
+         if (respuesta == "incorrecto")
+            .alert.alert-danger(role='alert')
+              strong Todavia no hay frases ingresadas si no completa los campos =(
+    div.col-md-8
+      form(action="/japo", method="POST", role="form")
+        div.form-group
+          label(for="palabra")  palabra
+          input#palabra.form-control(name="palabra", type="text", placeholder="palabra en japones hi")
+        div.form-group
+          label(for="significado") significado
+          input#slug.form-control(name="significado", type="text", placeholder="significado en español")
+        div.form-group
+          label(for="tag") Tag
+          input#slug.form-control(name="tag", type="text", placeholder="Tag genero que pertenece")
+        p
+          button.btn.btn-primary(type="submit") Save
